@@ -44,7 +44,7 @@ public class DocumentParser implements Parser {
             updateNetVeight(document,railDoc);
             setVagonPaymentToDoc(document,railDoc);
 
-            updateDocument(document,railDoc);
+//            updateDocument(document,railDoc);
         }
 
         return railDoc;
@@ -160,6 +160,13 @@ public class DocumentParser implements Parser {
                 .getElementsByTag("document-data")
                 .first()
                 .getElementsByTag("uz-rwc-doc").first();
+        if(docBody == null){
+            docBody = jSoupDoc
+                    .getElementsByTag("uz-rwc-doc")
+                    .first()
+                    .getElementsByTag("document-data").first();
+        }
+        System.out.println(docBody);
         Elements elements = docBody.getElementsByTag("VAGON");
         for (Element element : elements) {
             String number = element.getElementsByAttribute("nomer").attr("nomer");
@@ -247,7 +254,7 @@ public class DocumentParser implements Parser {
     }
 
 
-    private void updateDocument(Document jSoupDoc, RailroadDocument railDoc){
+/*    private void updateDocument(Document jSoupDoc, RailroadDocument railDoc){
         Element updateBody = jSoupDoc.getElementsByTag("changes").first();
         Elements updatedElements = updateBody.getElementsByTag("update");
 //        int vagonCount = railDoc.getVagonCount();
@@ -257,7 +264,7 @@ public class DocumentParser implements Parser {
 //            Elements vagon1changes = element.getElementsByAttributeValue("target","OTPR/VAGON[1]");
 //            System.out.println(vagon1changes);
 //        }
-    }
+    }*/
     /*
      * Обновление информации по номерам вагонов
      */
